@@ -1,0 +1,11 @@
+.cache/
+js/libs/@webxr-input-profiles/assets/dist/profiles/
+static/data/
+static/images/
+static/music/
+static/sounds/
+static/tours/
+static/videos/
+static/webxr/
+fiveserver.config.js
+urls.txt

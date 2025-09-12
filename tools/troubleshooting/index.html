@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<title>The Second Realm - Troubleshooting</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" 
+          rel="stylesheet"
+          type="text/css">
+		<link type="text/css" rel="stylesheet" href="/css/thesecondrealm.css">
+	</head>
+
+  <body>
+    <table id="troubleshooting-table">
+      <tr>
+        <td class="title">WEBXR TROUBLESHOOTING</td>
+      </tr>
+      <tr><td>&nbsp;</td></tr>
+      <tr>
+        <td>
+          <p>Click on the "Run diagnosis" button.</p>
+          <p>If WebXR is supported by your browser then you should enter a VR scene immersing you into a cube.</p>
+          <p>Exit the scene and check the logs displayed in the text field.</p>
+        </td>
+      </tr>
+      <tr><td>&nbsp;</td></tr>
+      <tr>
+        <td>
+          <button id="xr-diagnosis-btn">RUN DIAGNOSIS</button>
+          <br/><br/>
+          <textarea id="xr-diagnosis-text" rows="20" cols="80"></textarea>
+        </td>
+      </tr>
+    </table>
+
+    <div id="container" hidden></div>
+
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "/js/libs/three/three.module.js",
+					"three/addons/": "/js/libs/three/addons/"
+				}
+			}
+		</script>
+    <script type="module" src="./index.js"></script>
+  </body>
+
+</html>

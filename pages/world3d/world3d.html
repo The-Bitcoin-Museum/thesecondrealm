@@ -1,0 +1,32 @@
+<div id="container">
+</div>
+
+<div id="loading" class="msg-card" hidden>
+  <div class="inner">
+    <div>LOADING</div>
+    <div class="loading-dual-ring"></div>
+  </div>
+</div>
+
+<div id="webxr-not-suppported" class="msg-card" hidden>
+  <div class="inner">
+    <div>THE SECOND REALM REQUIRES A META QUEST 3.</div>
+    <div>
+      <button id="back-btn" class="btn-success">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirm-teleport" class="msg-card" hidden>
+  <div class="inner">
+    <div>YOU'RE ABOUT TO ENTER IN THE SECOND REALM</div>
+    <div>THE PLACE IS CALLED "<span id="location-span"></span>"</div>
+    <div>DO YOU WANT TO CONTINUE?</div>
+    <div>
+      <button id="start-immersion-btn" class="btn-success">OK</button>
+      <button id="cancel-btn" class="btn-success">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<script data-include-js="/pages/world3d/world3d.js"></script>

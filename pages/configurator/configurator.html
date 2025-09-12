@@ -1,0 +1,140 @@
+<section id="build-section1" class="parallax-left-container">
+  <div class="cover-right">
+    <h1 class="title right">BUILD</h1>
+    <!-- <p class="content right">The Second Realm Configurator</p> -->
+    <p class="content right">Where new worlds are built</p>
+  </div>
+</section>
+
+<section id="build-section2" class="buffer">
+  <h1 class="title">THE SECOND REALM CONFIGURATOR</h1>
+
+  <!-- SELECT THE SERIES ASSOCIATED TO THE 3 AXES -->
+  <div id="block1" class="level1">
+    <h2 class="title">DATA SELECTION</h2>
+
+    <p class="note">Select a metrics and a display scale for each axis. Optionally, filter out the outliers.</p>
+  
+    <div id="block1-1" class="axis">
+      <h3>X-AXIS</h3>
+      <select id="seriesX-select"></select>
+      <select id="scaleX-select"></select>
+      <div id="histogramX-div" class="histo-filters"></div>
+    </div>
+
+    <div id="block1-2" class="axis">
+      <h3>Y-AXIS</h3>
+      <select id="seriesY-select"></select>
+      <select id="scaleY-select"></select>
+      <div id="histogramY-div" class="histo-filters"></div>
+    </div>
+
+    <div id="block1-3" class="axis">
+      <h3>Z-AXIS</h3>
+      <select id="seriesZ-select"></select>
+      <select id="scaleZ-select"></select>
+      <div id="histogramZ-div" class="histo-filters"></div>
+    </div>
+
+    <div id="block1-4" class="buttons-bar">
+      <!-- RANDOM SELECTION -->
+      <button id="random-metrics-btn" class="btn-success">SELECT RANDOM METRICS</button>
+      <!-- SHIFTS AXES ORDER -->
+      <button id="shift-axes-btn" class="btn-success">SHIFT THE ORDER OF AXES</button>
+    </div>
+  </div>
+
+  <!-- FILTER THE BLOCK BASED ON THEIR HEIGHT -->
+  <div id="block2" class="level1">
+    <h2 class="title">BLOCKS FILTERING (OPTIONAL)</h2>
+    
+    <p class="note">Select the range of blocks to be included in this Realm, based on their height.</p>
+
+    <div id="block2-1">
+      <span>ONLY DISPLAY BLOCKS BETWEEN </span>
+      <input id="filterMinH-input" 
+             type="text" 
+             placeholder="BLOCK HEIGHT">
+      <span> AND </span>
+      <input id="filterMaxH-input" 
+             type="text" 
+             placeholder="BLOCK HEIGHT">
+    </div>
+
+  </div>
+  
+  <!-- SELECTION OF AN INITIAL POSITION -->
+  <div id="block3" class="level1">
+    <h2 class="title">INITIAL POSITION</h2>
+    <p class="note">Define the initial position of the Explorer.</p>
+    <select id="position-select"></select>
+  </div>
+
+  <!-- ACTIVATION OF TIMELAPSE MODE -->
+  <div id="block4" class="level1">
+    <h2 class="title">TIMELAPSE MODE</h2>
+    <p class="note">Display this Realm all at once or block by block (Timelapse mode).</p>
+
+    <input type="radio"
+           id="activate-timelapse-radio" 
+           name="timelapse-radio" 
+           value="activate">
+    <label for="html">ACTIVATED</label>
+
+    <input type="radio"
+           id="deactivate-timelapse-radio"
+           name="timelapse-radio" 
+           value="deactivate"
+           checked>
+    <label for="html">DEACTIVATED</label>
+  </div>
+
+  <!-- SELECTION OF A SONG -->
+  <div id="block5" class="level1">
+    <h2 class="title">MUSIC (OPTIONAL)</h2>
+    <p class="note">Select a song or enter the URL of a custom MP3 file (select "OTHER" in the menu).</p>
+
+    <select id="music-select"></select>
+
+    <input id="music-input" 
+           type="text" 
+           hidden
+           placeholder="URL OF THE MP3 FILE">
+  </div>
+
+  <!-- SELECTION OF A TOUR -->
+  <div id="block6" class="level1">
+    <h2 class="title">ORGANIZED TOUR (OPTIONAL)</h2>
+    <p class="note">Enter the URL of a JSON file storing the organized tour.</p>
+    <input id="organized-tour-url-input" 
+           type="text" 
+           placeholder="URL OF THE ORGANIZED TOUR DESCRIPTOR FILE">
+  </div>
+
+  <!-- GIVE A NAME TO THIS REALM -->
+  <div id="block7" class="level1">
+    <h2 class="title">NAME</h2>
+    <p class="note">Give a name to this Realm before sharing it with the world.</p>
+    <input id="name-input" 
+           type="text" 
+           maxlength="40"
+           placeholder="THE NAME OF THIS REALM">
+  </div>
+  
+  <!-- ACTIONS -->
+  <div id="blockn" class="level1 buttons-bar">
+    <!-- BUILD THE WORLD 3D AND ENTER THE SCENE -->
+    <button id="enter-vr-btn" class="btn-success">TEST THIS REALM</button>
+    <!-- GENERATE URL -->
+    <button id="generate-url-btn" class="btn-success">GENERATE URL TO CLIPBOARD</button>
+    <!-- SHARE ON TWITTER -->
+    <button id="twitter-btn" class="btn-success">SHARE ON TWITTER</button>
+    <!-- SHARE ON FACEBOOK -->
+    <button id="facebook-btn" class="btn-success">SHARE ON FACEBOOK</button>
+    <!-- SHARE ON REDDIT -->
+    <button id="reddit-btn" class="btn-success">SHARE ON REDDIT</button>
+  </div>
+
+</section>
+
+<script data-include-js="/pages/configurator/configurator.js"></script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>The Second Realm</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" 
+          rel="stylesheet"
+          type="text/css">
+		<link type="text/css" rel="stylesheet" href="/css/thesecondrealm.css">
+	</head>
+
+  <body>
+    <div id="header"
+         data-include-html="/pages/components/header/header.html"
+         class="header">
+    </div>
+    <div id="top-container" class="container">
+      <div id="main">
+        <!-- HOME -->
+        <div id="home"
+             data-include-html="pages/home/home.html"
+             hidden>
+        </div>
+        <!-- EXPLORE -->
+        <div id="explore"
+             data-include-html="pages/explore/explore.html"
+             hidden>
+        </div>
+        <!-- TELL -->
+        <div id="tell"
+             data-include-html="pages/tell/tell.html"
+             hidden>
+        </div>
+        <!-- SHAPE -->
+        <div id="shape"
+             data-include-html="pages/shape/shape.html"
+             hidden>
+        </div>
+        <!-- CONFIGURATOR -->
+        <div id="configurator"
+             data-include-html="pages/configurator/configurator.html"
+             hidden>
+        </div>
+        <!-- ATLAS -->
+        <div id="atlas"
+             data-include-html="pages/atlas/atlas.html"
+             hidden>
+        </div>
+        <!-- 3DWORLD -->
+        <div id="world3d" 
+             data-include-html="pages/world3d/world3d.html"      
+             hidden>
+        </div>
+        <!-- CREDITS -->
+        <div id="credits" 
+             data-include-html="pages/credits/credits.html"      
+             hidden>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer"
+         data-include-html="/pages/components/footer/footer.html">
+    </div>
+
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "./js/libs/three/three.module.js",
+					"three/addons/": "/js/libs/three/addons/"
+				}
+			}
+		</script>
+
+    <script src="./globals.js"></script>
+    <script type="module" src="./index.js"></script>
+
+  </body>
+
+</html>

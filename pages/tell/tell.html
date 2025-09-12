@@ -1,0 +1,84 @@
+<section id="tell-section1" 
+         class="parallax-left-container">
+  <div class="cover-right">
+    <h1 class="title right">TELL</h1>
+    <p class="content right">All realms are woven of lands and tales</p>
+    <p class="content right">Recount the sagas of Bitcoin's past epochs</p>
+  </div>
+</section>
+
+<section id="tell-section2" class="buffer">
+  
+  <div class="paragraph-left">
+    <h1 class="title">INTRODUCTION TO GUIDED TOURS</h1>
+    <p class="content">Beyond freely wandering through its data landscapes, the Second Realm offers the option to follow a guided tour.</p>
+    <p class="content">
+      A guided tour is an ordered collection of short stories tied to specific points of interest within a realm.
+      This collection forms a circuit, serving as an Ariadne’s thread to guide explorers through their immersive journey.
+    </p>
+  </div>
+
+  <div id="format-div" class="paragraph-row">
+    <div id="format-content-div" class="paragraph-left">
+      <h1 class="title">DESCRIPTOR FILES FORMAT</h1>
+      <p class="content">
+        A guided tour is defined by a descriptor file in JSON format, associated with the realm by its builder during configuration. 
+        An example of a descriptor file can be found <a href="/static/tours/bitcoin_tsunami_1.json" target="_blank">here</a>.
+      </p>
+
+      <p class="content">The structure of all descriptor files follows this format:</p>
+      
+      <p class="content"><span class="underline">version:</span> The version of the Descriptor File format. Value should be 0.1.0</p>
+      
+      <p class="content"><span class="underline">type:</span> The type of descriptor file. Value should always be "guided_tour"</p>
+      
+      <p class="content"><span class="underline">title:</span> The name of the Guided Tour. Value should be a string.</p>
+      
+      <p class="content">
+        <span class="underline">coords_type:</span> The coordinate system used in the file. The value should be either "data_series" or "block_height".
+        <ul>
+          <li>
+            <span class="underline">data_series:</span> Coordinates are expressed as an array of three numerical values [X, Y, Z] representing a point in the data space, dependent on the metrics selected for each axis.
+          </li>
+          <li>
+            <span class="underline">block_height:</span> Coordinates are expressed as a single integer value representing the height of a block.
+          </li>
+        </ul>
+      </p>
+      
+      <p class="content"><span class="underline">initial_pos:</span> The initial position of the explorer. The format depends on the "coords_type" value.</p>
+      
+      <p class="content">
+        <span class="underline">stages:</span> An array of points of interest (stages). Each stage is an object with the following structure:
+        <ul>
+          <li>
+            <span class="underline">coords:</span> The coordinates of the point of interest. The format depends on the "coords_type" value.
+          </li>
+          <li><span class="underline">title:</span> The name or title of the stage.</li>
+          <li><span class="underline">desc:</span> The content associated with the stage.</li>
+        </ul>
+      </p>
+    </div>
+
+    <div id="format-img-div" class="paragraph-right">
+      <img id="format-img" src="/static/images/guided-tour-format.jpg"/>
+      <img id="format-img2" src="/static/images/guided-tour-format2.jpg"/>
+    </div>
+  </div>
+
+
+
+  <div id="tips-div" class="paragraph-left">
+    <h1 class="title">TIPS</h1>
+    <p class="content">
+      Using data values as coordinates allows points of interest to be defined independently of block positions, making it easier to fine-tune their placement for optimal visibility. 
+      However, this approach requires that the guided tour be used with realms configured with the same metrics for all three axes.
+    </p>
+    <p class="content">The guided tour is not just about the story—it’s also about the journey. The order of the points of interest significantly impacts the experience.</p>
+    <p class="content">When complete, the descriptor file must be hosted on a public web server, and its URL shared with the builder. If needed, we can host your descriptor file on our server. Contact us on <a href="https://t.me/+PYX-hDQ_sr03YWVk" target="_blank">Telegram</a></p>
+  </div>
+
+</section>
+
+
+<script data-include-js="/pages/tell/tell.js"></script>

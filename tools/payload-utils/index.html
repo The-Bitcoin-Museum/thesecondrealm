@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>The Second Realm - Payload Decoder</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300&subset=latin,latin-ext" 
+          rel="stylesheet"
+          type="text/css">
+		<link type="text/css" rel="stylesheet" href="/css/thesecondrealm.css">
+	</head>
+
+  <body>
+    <table id="payload-utils-table">
+      <tr>
+        <td>
+          <textarea id="b58-text" 
+                    rows="35" 
+                    cols="50"
+                    placeholder="ENTER A BASE58 PAYLOAD"></textarea>
+          
+        </td>
+        <td>
+          <button id="decode-btn">DECODE &gt;&gt;</button>
+          <br/><br/>
+          <button id="encode-btn">&lt;&lt; ENCODE</button>
+        </td>
+        <td>
+          <textarea id="json-text" 
+                    rows="35" 
+                    cols="50"
+                    placeholder="ENTER A JSON PAYLOAD"></textarea>
+        </td>
+      </tr>
+    </table>
+    
+    <script type="module" src="./index.js"></script>
+  </body>
+
+</html>

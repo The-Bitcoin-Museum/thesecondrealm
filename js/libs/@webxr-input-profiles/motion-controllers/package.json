@@ -1,0 +1,52 @@
+{
+  "_from": "@webxr-input-profiles/motion-controllers",
+  "_id": "@webxr-input-profiles/motion-controllers@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-Ppxde+G1/QZbU8ShCQg+eq5VtlcL/FPkerF1dkDOLlIml0LJD1tFqnCZYR0SrHzYleIQ2siRnOx7xbFLaCpExQ==",
+  "_location": "/@webxr-input-profiles/motion-controllers",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@webxr-input-profiles/motion-controllers",
+    "name": "@webxr-input-profiles/motion-controllers",
+    "escapedName": "@webxr-input-profiles%2fmotion-controllers",
+    "scope": "@webxr-input-profiles",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@webxr-input-profiles/motion-controllers/-/motion-controllers-1.0.0.tgz",
+  "_shasum": "0a84533288af39d85bfe1987721035925d69be47",
+  "_spec": "@webxr-input-profiles/motion-controllers",
+  "_where": "/home/kenshin/dev/webxr-input-profiles",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "[![Build Status](https://travis-ci.com/immersive-web/webxr-input-profiles.svg?branch=master)](https://travis-ci.org/immersive-web/webxr-input-profiles)",
+  "devDependencies": {
+    "@webxr-input-profiles/assets": "^1.0.0"
+  },
+  "files": [
+    "package.json",
+    "LICENSE",
+    "README.md",
+    "dist/motion-controllers.module.js",
+    "src/**"
+  ],
+  "main": "dist/motion-controllers.module.js",
+  "name": "@webxr-input-profiles/motion-controllers",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "node -e \"try { require('fs').rmdirSync('./dist', { recursive: true }); } catch {}\"",
+    "cleanBuild": "npm run clean && npm run build",
+    "test": "echo \"Run tests from root\" && exit 1",
+    "typecheck": "tsc -p tsconfig.json",
+    "watch": "rollup -c -w -m inline"
+  },
+  "types": "src/index.d.ts",
+  "version": "1.0.0"
+}
