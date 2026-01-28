@@ -38,6 +38,10 @@ function goToPage(page) {
   sessionStorage.setItem('activePage', page);
   document.querySelector(page).classList.add('active');
   setPagesVisibility();
+  const path = page.substring(1);
+  if (path != 'world3d') {
+    window.history.pushState({}, path, window.location.origin + '/' + 'index.html?p=' + path);        
+  }
   includeHTML(() => {
     const pageScript = pageScripts.get(page);
     if (pageScript) {

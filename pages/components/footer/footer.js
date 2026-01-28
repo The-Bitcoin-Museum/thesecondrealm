@@ -2,7 +2,8 @@ const footerScript = {
 
   initComponent: () => {
     document.querySelector('#credits-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#credits');
       }
     );
