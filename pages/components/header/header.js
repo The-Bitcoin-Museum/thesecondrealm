@@ -14,7 +14,8 @@ const headerScript = {
     for (let page of headerScript.pages) {
       const link = page + '-link';
       document.querySelector(link).addEventListener(
-        'click', () => {
+        'click', (e) => {
+          e.preventDefault();
           goToPage(page);
         }
       );

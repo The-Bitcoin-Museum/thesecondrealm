@@ -3,31 +3,36 @@ const homeScript = {
   initPage: () => {
     // Sets the event handlers
     document.querySelector('#here-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#explore');
       }
     );
 
     document.querySelector('#explorer-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#explore');
       }
     );
 
     document.querySelector('#builder-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#configurator');
       }
     );
 
     document.querySelector('#teller-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#tell');
       }
     );
 
     document.querySelector('#landscaper-link').addEventListener(
-      'click', () => {
+      'click', (e) => {
+        e.preventDefault();
         goToPage('#shape');
       }
     );

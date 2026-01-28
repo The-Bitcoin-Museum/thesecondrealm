@@ -40,9 +40,12 @@ function initPages() {
   initPages();
   // Detects URL parameter
   const urlParams = new URLSearchParams(window.location.search);
+  const p = urlParams.get('p');
   const r = urlParams.get('r');
   if (r != null) {
     openWorld3d(r);
+  } else if (p != null) {
+    goToPage('#'+p);
   } else {
     goToPage('#home');
   }
