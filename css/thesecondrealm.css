@@ -282,7 +282,7 @@ li {
  */
 
 #home-section1 {
-  background-image: url(/static/images/tsr_9.png);
+  background-image: url(/static/images/tsr_9.jpg);
   justify-content: end!important;
   text-align: right;
 }
@@ -303,7 +303,7 @@ li {
 }
 
 #home-section2 {
-  background-image: url(/static/images/tsr_4.png);
+  background-image: url(/static/images/tsr_4.jpg);
   padding-top: 10%;
   padding-bottom: 10%;
 }
@@ -333,7 +333,7 @@ li {
  */
 
 #explore-section1 {
-  background-image: url(/static/images/tsr_1b.png);
+  background-image: url(/static/images/tsr_1b.jpg);
   text-align: left;
   justify-content: end!important;
 }
@@ -378,7 +378,7 @@ li {
 }
 
 #explore-section3 {
-  background-image: url(/static/images/tsr_13.png);
+  background-image: url(/static/images/tsr_13.jpg);
   justify-content: center;
   text-align: left;
 }
@@ -402,7 +402,7 @@ li {
 }
 
 #explore-section5 {
-  background-image: url(/static/images/tsr_6.png);
+  background-image: url(/static/images/tsr_6.jpg);
   justify-content: center;
   text-align: left;
 }
@@ -412,7 +412,7 @@ li {
  */
 
  #build-section1 {
-  background-image: url(/static/images/tsr_7.png);
+  background-image: url(/static/images/tsr_7.jpg);
   text-align: right;
   justify-content: end!important;
 }
@@ -508,7 +508,7 @@ li {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  background-image: url(/static/images/tsr_10.png);
+  background-image: url(/static/images/tsr_10.jpg);
   text-align: center;
   font-size: 16pt;
   font-weight: 300;
@@ -559,7 +559,7 @@ li {
  */
 
 #tell-section1 {
-  background-image: url(/static/images/tsr_3.png);
+  background-image: url(/static/images/tsr_3.jpg);
   text-align: left;
   justify-content: end!important;
 }
@@ -579,7 +579,7 @@ li {
  */
 
  #shape-section1 {
-  background-image: url(/static/images/tsr_14.png);
+  background-image: url(/static/images/tsr_14.jpg);
   text-align: left;
   justify-content: end!important;
 }
@@ -589,7 +589,7 @@ li {
  */
 
 #atlas-section1 {
-  background-image: url(/static/images/tsr_11.png);
+  background-image: url(/static/images/tsr_11.jpg);
   text-align: left;
   justify-content: end!important;
 }
@@ -639,47 +639,47 @@ li {
 }
 
 #realm1 {
-  background-image: url(/static/images/mini_3.png);
+  background-image: url(/static/images/mini_3.jpg);
 }
 
 #realm2 {
-  background-image: url(/static/images/mini_9c.png);
+  background-image: url(/static/images/mini_9c.jpg);
 }
 
 #realm3 {
-  background-image: url(/static/images/mini_9.png);
+  background-image: url(/static/images/mini_9.jpg);
 }
 
 #realm4 {
-  background-image: url(/static/images/mini_15b.png);
+  background-image: url(/static/images/mini_15b.jpg);
 }
 
 #realm5 {
-  background-image: url(/static/images/mini_15.png);
+  background-image: url(/static/images/mini_15.jpg);
 }
 
 #realm6 {
-  background-image: url(/static/images/mini_3c.png);
+  background-image: url(/static/images/mini_3c.jpg);
 }
 
 #realm7 {
-  background-image: url(/static/images/mini_7.png);
+  background-image: url(/static/images/mini_7.jpg);
 }
 
 #realm8 {
-  background-image: url(/static/images/mini_7b.png);
+  background-image: url(/static/images/mini_7b.jpg);
 }
 
 #realm9 {
-  background-image: url(/static/images/mini_5c.png);
+  background-image: url(/static/images/mini_5c.jpg);
 }
 
 #realm10 {
-  background-image: url(/static/images/mini_5b.png);
+  background-image: url(/static/images/mini_5b.jpg);
 }
 
 #realm11 {
-  background-image: url(/static/images/mini_7d.png);
+  background-image: url(/static/images/mini_7d.jpg);
 }
 
 
@@ -688,7 +688,7 @@ li {
  */
 
  #credits-section1 {
-  background-image: url(/static/images/tsr_15b.png);
+  background-image: url(/static/images/tsr_15b.jpg);
   text-align: left;
   justify-content: end!important;
 }
