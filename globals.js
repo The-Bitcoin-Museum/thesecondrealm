@@ -48,6 +48,7 @@ function goToPage(page) {
       preparePage();
     }
   });
+  window.scrollTo(0, 0);
 }
 
 function setPagesVisibility() {
