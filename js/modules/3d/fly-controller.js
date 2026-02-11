@@ -180,7 +180,7 @@ class FlyController extends EventDispatcher {
       });
     });
 
-    // Refresh the acceleation state object
+    // Refresh the acceleration state object
     Object.values(this.world3d.xrManager.controllers).forEach(mc => {
       Object.values(mc.components).forEach(c => {
         switch (c.type) {

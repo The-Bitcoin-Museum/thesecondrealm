@@ -1,8 +1,5 @@
 import { 
   Vector3,
-  Mesh,
-  SphereGeometry,
-  MeshBasicMaterial,
   LineSegments,
   BoxGeometry,
   EdgesGeometry,
@@ -81,29 +78,35 @@ class GuidedTour extends LineSegments {
    */
   async load(url) {
     this.isLoadingOk = false;
+    const path = [];
 
     const tourDescriptor = await dataStore.getTourDescriptorFile(url);
     if (!tourDescriptor) {
-      return; 
+      return []; 
     }
     
     this.title = tourDescriptor['title'];
     this.version = tourDescriptor['version'];
     this.coordTypes = tourDescriptor['coords_type'];
     this.initialPosition = this.getWorld3dPosition(tourDescriptor['initial_pos']);
-    if (this.initialPosition == null) return;
+    
+    if (this.initialPosition == null) return [];
 
     for (let stage of tourDescriptor['stages']) {
       const pos = this.getWorld3dPosition(stage['coords']);
-      if (pos == null) return;
+      if (pos == null) return [];
+      
       this.stages.push({
         'coords': pos,
         'title': stage['title'],
         'content': stage['desc']
       });
+
+      path.push(pos);
     }
 
     this.isLoadingOk = true;
+    return path;
   }
 
   /**
@@ -161,7 +164,7 @@ class GuidedTour extends LineSegments {
    */
   displayGoodByeMessage() {
     const title = `Thank you!`;
-    const content1 = `This last step marks the end of the tour.\n\nWe hope that you have enjoyed your ride with us and that it has made you want to explore this realm on your own.`;
+    const content1 = `This last step marks the end of the tour.\n\nWe hope that you have enjoyed your ride with us and that it has made you want to explore this realm on your own.\n\nPress the meta button to leave this realm.`;
     const content2 = ``;
     this.world3d.hud.leftScreen.displayMessage(title, content1, content2);
   }

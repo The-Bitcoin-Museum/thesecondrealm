@@ -17,6 +17,10 @@ const world3dScript = {
   // World3D component
   world3d: null,
 
+  // Tour type
+  tourType: null,
+
+
   /*
    * Initialize the page
    */
@@ -25,7 +29,7 @@ const world3dScript = {
 
     // Buttons
     document.querySelector('#start-immersion-btn').addEventListener(
-      'click', () => { world3dScript.confirmImmersion(); }
+      'click', async () => { await world3dScript.confirmImmersion(); }
     );
 
     document.querySelector('#cancel-btn').addEventListener(
@@ -54,7 +58,7 @@ const world3dScript = {
     await world3dScript.loadDataSeries(sceneParams);
     // Checks the active mode (builder/explorer)
     if (sceneParams.mode == SceneParams.MODE_BUILDER) {
-      world3dScript.confirmImmersion();
+      await world3dScript.confirmImmersion();
     } else {
       document.querySelector('#location-span').textContent = sceneParams.name;
       world3dScript.showDiv('#confirm-teleport');
@@ -64,12 +68,17 @@ const world3dScript = {
   /*
    * Start the immersion
    */
-  startImmersion: () => {
+  startImmersion: async () => {
     const sceneParams = SceneParams.fromJSON(sessionStorage.getItem('sceneParams'));
     if (sceneParams == null) return;
+    // Initializes the tour type
+    world3dScript.tourType = await world3dScript.getTourType(sceneParams);
     // Initializes a World component
     let gridContainer = document.getElementById('container');
-    world3dScript.world3d = new World3D(gridContainer);
+    world3dScript.world3d = new World3D(
+      gridContainer, 
+      world3dScript.tourType
+    );
     world3dScript.world3d.xrManager.addEventListener(
       'sessionend', 
       world3dScript.endImmersion.bind(world3dScript)
@@ -79,13 +88,27 @@ const world3dScript = {
   },
 
   /*
+   * Extracts the tourType from sceneParams
+   */
+  getTourType: async (sceneParams) => {
+    let tourType = null;
+    if (sceneParams.tour) {
+      const tourDescriptor = await dataStore.getTourDescriptorFile(sceneParams.tour);
+      if (tourDescriptor) {
+        tourType = tourDescriptor['type'];
+      }
+    }
+    return tourType
+  },
+
+  /*
    * Confirm immersion 
    * (wrapper for startImmersion() in explorer mode)
    */
-  confirmImmersion: () => {
+  confirmImmersion: async () => {
     document.querySelector('#location-span').textContent = '';
     world3dScript.showDiv('#container');
-    world3dScript.startImmersion();
+    await world3dScript.startImmersion();
   },
 
 
@@ -115,14 +138,6 @@ const world3dScript = {
     
     [seriesH, seriesT, seriesX, seriesY, seriesZ] = await world3dScript.loadDataSeries(sceneParams);
     
-    let tourType = null;
-    if (sceneParams.tour) {
-      const tourDescriptor = await dataStore.getTourDescriptorFile(sceneParams.tour);
-      if (tourDescriptor) {
-        tourType = tourDescriptor['type'];
-      }
-    }
-
     const pointsCloudData = new PointsCloudData(
       sceneParams.seriesX, sceneParams.seriesY, sceneParams.seriesZ,
       seriesH, seriesT, seriesX, seriesY, seriesZ,
@@ -136,7 +151,7 @@ const world3dScript = {
     world3dScript.world3d.displayPointsCloud(pointsCloudData, displayMode);
     
     if (sceneParams.mode == SceneParams.MODE_BUILDER) {
-    // if (true) {
+    //if (true) {
       world3dScript.world3d.immersionModeActivated = true;     
       
       world3dScript.world3d.camera.moveTo(
@@ -146,20 +161,11 @@ const world3dScript = {
 
       world3dScript.world3d.hud.activate();
       
-      if (tourType == 'autopilot') {
-        world3dScript.world3d.initAutopilot();
-        await world3dScript.world3d.autopilot.load(sceneParams.tour);
-      }
-
       world3dScript.world3d.soundSystem.loadMusic(song);
 
       if (sceneParams.tour) {
-        if (tourType == 'autopilot') {
-          world3dScript.world3d.autopilot.start();
-        } else {
-          world3dScript.world3d.initGuidedTour();
-          world3dScript.startGuidedTour(sceneParams.tour);
-        }
+        world3dScript.world3d.initTour();
+        world3dScript.world3d.startTour(sceneParams.tour);
       }
 
     } else {
@@ -173,21 +179,12 @@ const world3dScript = {
 
         world3dScript.world3d.hud.activate();
 
-        if (tourType == 'autopilot') {
-          world3dScript.world3d.initAutopilot();
-          await world3dScript.world3d.autopilot.load(sceneParams.tour);
-        }
-
         setTimeout(() => {
           world3dScript.world3d.soundSystem.loadMusic(song);
-
+          
           if (sceneParams.tour) {
-            if (tourType == 'autopilot') {
-              world3dScript.world3d.autopilot.start();
-            } else {
-              world3dScript.world3d.initGuidedTour();
-              world3dScript.startGuidedTour(sceneParams.tour);
-            }
+            world3dScript.world3d.initTour();
+            world3dScript.world3d.startTour(sceneParams.tour);
           }
         }, 20); 
       });
@@ -206,33 +203,6 @@ const world3dScript = {
     world3dScript.world3d = null;
     goToPage('#configurator');
   },
-
-  /*
-   * Start the organized tour 
-   */
-  startGuidedTour: async (url) => {
-    try {
-      await world3dScript.world3d.guidedTour.load(url);
-      world3dScript.world3d.guidedTour.start();
-    } catch (e) {
-      console.log('A problem was encountered while trying to load the tour: ' + url);
-      console.log(e);
-    }
-  },
-
-  /*
-   * Start the autopilot 
-   */
-  startAutopilot: async (url) => {
-    try {
-      await world3dScript.world3d.autopilot.load(url);
-      world3dScript.world3d.autopilot.start();
-    } catch (e) {
-      console.log('A problem was encountered while trying to load the autopilot: ' + url);
-      console.log(e);
-    }
-  },
-
 
   /*
    * Show a specific div

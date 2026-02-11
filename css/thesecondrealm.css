@@ -574,6 +574,22 @@ li {
   margin-bottom: 10px;
 }
 
+#tell-section3 {
+  background-image: url(/static/images/tsr_4.jpg);
+  text-align: left;
+  justify-content: end!important;
+}
+
+#tell-section3 #format-div2 {
+  margin-top: 0;
+}
+
+#tell-section3 #format-img3 {
+  margin-top: 6em;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
 /**
  * SHAPE
  */
@@ -638,7 +654,7 @@ li {
   margin-left: 0;
 }
 
-#realm1 {
+#realm1, #realm1b {
   background-image: url(/static/images/mini_3.jpg);
 }
 
@@ -654,7 +670,7 @@ li {
   background-image: url(/static/images/mini_15b.jpg);
 }
 
-#realm5 {
+#realm5, #realm5b {
   background-image: url(/static/images/mini_15.jpg);
 }
 

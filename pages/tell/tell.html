@@ -1,11 +1,14 @@
 <section id="tell-section1" 
          class="parallax-left-container">
+
   <div class="cover-right">
     <h1 class="title right">TELL</h1>
     <p class="content right">All realms are woven of lands and tales</p>
     <p class="content right">Recount the sagas of Bitcoin's past epochs</p>
   </div>
+
 </section>
+
 
 <section id="tell-section2" class="buffer">
   
@@ -30,7 +33,7 @@
       
       <p class="content"><span class="underline">version:</span> The version of the Descriptor File format. Value should be 0.1.0</p>
       
-      <p class="content"><span class="underline">type:</span> The type of descriptor file. Value should always be "guided_tour"</p>
+      <p class="content"><span class="underline">type:</span> The type of descriptor file. Value should be "guided_tour" (manual piloting) or "guided_tour_autopilot" (autopilot mode)</p>
       
       <p class="content"><span class="underline">title:</span> The name of the Guided Tour. Value should be a string.</p>
       
@@ -66,7 +69,69 @@
     </div>
   </div>
 
+</section>
 
+
+
+<section id="tell-section3" 
+         class="parallax-left-container">
+
+    <div class="paragraph-row">
+      <div class="paragraph-left">
+        <h1 class="title">INTRODUCTION TO AUTOMATED WANDERINGS</h1>
+        <p class="content">Not every ballad requires words. Sometimes the beauty of the landscape tells its own story.</p>
+        <p class="content">An automated wandering consists of an ordered set of waypoints.</p>
+        <p class="content">Together, they create a circuit that the dataship follows automatically.</p>
+      </div>
+    </div>
+
+    <div id="format-div2" class="paragraph-row">
+      <div id="format-content-div2" class="paragraph-left">
+        <h1 class="title">DESCRIPTOR FILES FORMAT</h1>
+        <p class="content">
+          An automated wandering is defined by a descriptor file in JSON format, associated with the realm by its builder during configuration. 
+          An example of a descriptor file can be found <a href="/static/tours/borealis_1.json" target="_blank">here</a>.
+        </p>
+
+        <p class="content">The structure of all descriptor files follows this format:</p>
+        
+        <p class="content"><span class="underline">version:</span> The version of the Descriptor File format. Value should be 0.1.0</p>
+        
+        <p class="content"><span class="underline">type:</span> The type of descriptor file. Value should always be "autopilot"</p>
+        
+        <p class="content"><span class="underline">title:</span> The name of the Automated Wandering. Value should be a string.</p>
+        
+        <p class="content">
+          <span class="underline">coords_type:</span> The coordinate system used in the file. The value should be either "data_series" or "block_height".
+          <ul>
+            <li>
+              <span class="underline">data_series:</span> Coordinates are expressed as an array of three numerical values [X, Y, Z] representing a point in the data space, dependent on the metrics selected for each axis.
+            </li>
+            <li>
+              <span class="underline">block_height:</span> Coordinates are expressed as a single integer value representing the height of a block.
+            </li>
+          </ul>
+        </p>
+        
+        <p class="content">
+          <span class="underline">stages:</span> An array of waypoints (stages). Each stage is an object with the following structure:
+          <ul>
+            <li>
+              <span class="underline">coords:</span> The coordinates of the waypoint. The format depends on the "coords_type" value.
+            </li>
+          </ul>
+        </p>
+      </div>
+
+      <div id="format-img-div2" class="paragraph-right">
+        <img id="format-img3" src="/static/images/automated-wandering-format.jpg"/>
+      </div>
+    </div>
+
+</section>
+
+
+<section id="tell-section4" class="buffer">
 
   <div id="tips-div" class="paragraph-left">
     <h1 class="title">TIPS</h1>
