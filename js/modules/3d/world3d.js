@@ -8,9 +8,11 @@ import { Cube } from './cube.js';
 import { HUD } from './hud/hud.js';
 import { GuidedTour } from './guided-tour.js';
 import { Autopilot } from './autopilot.js';
+import { GuidedTourAutopilot } from './guided-tour-autopilot.js';
 import { Camera } from './camera.js';
 import { PointsCloud } from './points-cloud.js';
 import { SoundSystem } from './sound-system.js';
+import { AutopilotController } from './autopilot-controller.js';
 import { FlyController } from './fly-controller.js';
 import { Renderer } from './renderer.js';
 import { WebXRManager } from '../webxr/webxr-manager.js';
@@ -42,9 +44,11 @@ class World3D {
   soundSystem = null;
   pointsCloud = null;
   xrManager = null;
-  guidedTour = null;
-  autopilot = null;
+  tour = null;
   selectionHelper = null;
+
+  // Tour type
+  tourType = null;
 
   // Boolean flag indicating if loading has completed
   immersionModeActivated = false;
@@ -53,11 +57,11 @@ class World3D {
   /*
    * Constructor
    */
-  constructor(container) {
+  constructor(container, tourType) {
     //Cache.enabled = true;
-
     this.container = container;
-
+    this.tourType = tourType;
+  
     this.scene = new Scene();
     this.#initCamera();
     this.#initRenderer();
@@ -90,10 +94,14 @@ class World3D {
   }
 
   /*
-   * Initialize the current controls
+   * Initialize the controller
    */
   #initController() {
-    this.controller = new FlyController(this);
+    if (this.tourType == 'autopilot' || this.tourType == 'guided_tour_autopilot') {
+      this.controller = new AutopilotController(this);
+    } else {
+      this.controller = new FlyController(this);
+    }
   }
 
   /*
@@ -147,20 +155,60 @@ class World3D {
     this.selectionHelper = new SelectionHelper(this);
     this.scene.add(this.selectionHelper);
   }
-    
+  
   /*
-   * Initialize the GuidedTour object 
+   * Initialize the Tour 
    */
-  initGuidedTour() {
-    this.guidedTour = new GuidedTour(this);
-    this.scene.add(this.guidedTour);
+  initTour() {
+    if (this.tourType == null) return;
+
+    if (this.tourType == 'guided_tour') {
+      this.tour = new GuidedTour(this);
+    } else if (this.tourType == 'guided_tour_autopilot') {
+      this.tour = new GuidedTourAutopilot(this);
+      AutopilotController.CURVE_SLOWDOWN_SENSITIVITY = 1.0;
+      AutopilotController.CURVE_SLOWDOWN_SMOOTHING = 2.0;
+      AutopilotController.MAX_ANGULAR_SPEED = Math.PI / 16;
+    } else if (this.tourType == 'autopilot') {
+      this.tour = new Autopilot(this);
+      AutopilotController.CURVE_SLOWDOWN_SENSITIVITY = 3.0;
+      AutopilotController.CURVE_SLOWDOWN_SMOOTHING = 3.0;
+      AutopilotController.MAX_ANGULAR_SPEED = Math.PI / 96;
+      
+    }
+
+    if (this.tourType == 'guided_tour_autopilot' || this.tourType == 'autopilot') {
+      this.controller.addEventListener(
+        'resume', 
+        this.tour.displayOnTheMoveMessage.bind(this.tour), 
+        false
+      );
+      this.controller.addEventListener(
+        'completed', 
+        this.tour.onTourComplete.bind(this.tour), 
+        false
+      );
+    }
+
+    this.scene.add(this.tour);
   }
 
   /*
-   * Initialize the Autopilot object 
+   * Start the Tour 
    */
-  initAutopilot() {
-    this.autopilot = new Autopilot(this);
+  async startTour(url) {
+    try {
+      if (this.tourType != null) {
+        const path = await this.tour.load(url);
+        if (this.tourType == 'autopilot' || this.tourType == 'guided_tour_autopilot') {
+          this.controller.loadPath(path);
+        }
+        this.tour.start();
+      }
+    } catch (e) {
+      console.log('A problem was encountered while trying to load the tour: ' + url);
+      console.log(e);
+    }
   }
 
   /**
@@ -198,6 +246,16 @@ class World3D {
       'sessionstart', 
       this.renderer.onSessionStart.bind(this.renderer)
     );
+    if (this.tourType == 'guided_tour_autopilot' || this.tourType == 'autopilot') {
+      this.controller.removeEventListener(
+        'resume', 
+        this.tour.displayOnTheMoveMessage.bind(this.tour)
+      );
+      this.controller.removeEventListener(
+        'completed', 
+        this.tour.onTourComplete.bind(this.tour)
+      );
+    }
     // Disposes the renderer 
     this.renderer.dispose();
     // Disposes the sound system
@@ -214,8 +272,8 @@ class World3D {
     // Disposes the selection helper
     this.selectionHelper.dispose();
     // Disposes the guided tour
-    if (this.guidedTour) {
-      this.guidedTour.dispose();
+    if (this.tour) {
+      this.tour.dispose();
     }
     // Disposes the autopilot
     if (this.autopilot) {
@@ -234,7 +292,7 @@ class World3D {
     this.pointsCloud = null;
     this.selectionHelper = null;
     this.xrManager = null;
-    this.guidedTour = null;
+    this.tour = null;
     this.autopilot = null;
   }
 
