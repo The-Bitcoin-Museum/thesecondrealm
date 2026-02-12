@@ -168,7 +168,7 @@ class World3D {
       this.tour = new GuidedTourAutopilot(this);
       AutopilotController.CURVE_SLOWDOWN_SENSITIVITY = 1.0;
       AutopilotController.CURVE_SLOWDOWN_SMOOTHING = 2.0;
-      AutopilotController.MAX_ANGULAR_SPEED = Math.PI / 16;
+      AutopilotController.MAX_ANGULAR_SPEED = Math.PI / 4;
     } else if (this.tourType == 'autopilot') {
       this.tour = new Autopilot(this);
       AutopilotController.CURVE_SLOWDOWN_SENSITIVITY = 3.0;
