@@ -126,6 +126,11 @@ class AutopilotController extends EventDispatcher {
     if (projectedTan > 0.001) {
       this.previousYaw = Math.atan2(-initialTan.x, -initialTan.z);
       this.currentYaw = this.previousYaw;
+
+      let object = this.world3d.camera.parent;
+      const worldQuat = this.cameraYaw2Quaternion(this.currentYaw);
+      object.rotation.setFromQuaternion(worldQuat, 'YXZ');
+      object.updateMatrixWorld(true);
     }
     // Path is loaded. Enables controller.
     this.enabled = true;
@@ -160,11 +165,10 @@ class AutopilotController extends EventDispatcher {
     // Computes the tangent (camera orientation)
     const tangent = this.getCurveTangentAt(u);
     const tanProjLen = Math.sqrt(tangent.x ** 2 + tangent.z ** 2);
-    // Computes yax but avoids instabilities
+    // Computes yaw but avoids instabilities
     let yaw;
     if (tanProjLen > 0.001) { 
       yaw = Math.atan2(-tangent.x, -tangent.z);
-      this.previousYaw = yaw;
     } else {
       // Pure vertical move => keep previous yaw
       yaw = this.previousYaw;
@@ -282,15 +286,11 @@ class AutopilotController extends EventDispatcher {
       // Damps the yaw
       const alpha = 1 - Math.exp(-AutopilotController.YAW_DAMPING * delta);
       this.currentYaw = this.lerpAngles(this.currentYaw, pose.yaw, alpha, delta);
+      this.previousYaw = this.currentYaw;
       
       // Sets camera rotation
-      const euleurYaw = new Euler(0, this.currentYaw, 0, 'YXZ');
-      const localQuat = new Quaternion();
-      localQuat.setFromEuler(euleurYaw);      
-      const WorldQuat = new Quaternion();
-      object.getWorldQuaternion(WorldQuat);
-      WorldQuat.multiply(localQuat);
-      object.rotation.setFromQuaternion(WorldQuat, 'YXZ');
+      const worldQuat = this.cameraYaw2Quaternion(this.currentYaw);
+      object.rotation.setFromQuaternion(worldQuat, 'YXZ');
       this.lastQuaternion.copy(object.quaternion);
 
       // Dispatch event
@@ -413,6 +413,19 @@ class AutopilotController extends EventDispatcher {
     // Transforms into a speed factor (1 →  curveSlowdownFactor)
     const baseFactor = Math.pow(1 / (1 + sharpness), 1.2);
     return AutopilotController.CURVE_SLOWDOWN_FACTOR + (1 - AutopilotController.CURVE_SLOWDOWN_FACTOR) * baseFactor;
+  }
+
+  /*
+   * Convert camera yaw to a quaternion in world referential
+   */
+  cameraYaw2Quaternion(yaw) {
+    const euleurYaw = new Euler(0, yaw, 0, 'YXZ');
+    const localQuat = new Quaternion();
+    localQuat.setFromEuler(euleurYaw);      
+    const worldQuat = new Quaternion();
+    this.world3d.camera.parent.getWorldQuaternion(worldQuat);
+    worldQuat.multiply(localQuat);
+    return worldQuat;
   }
 
   /*
