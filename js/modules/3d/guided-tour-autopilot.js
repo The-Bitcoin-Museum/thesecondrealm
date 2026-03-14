@@ -39,7 +39,7 @@ class GuidedTourAutopilot extends GuidedTour {
     // Forces initial position in front of the camera
     const initPos = new Vector3(0, 0, -50000);
     const initPosWorld = new Vector3();
-    this.world3d.camera.localToWorld(initPosWorld.copy(initPos));
+    this.world3d.camera.parent.localToWorld(initPosWorld.copy(initPos));
     this.initialPosition = [initPosWorld.x, initPosWorld.y, initPosWorld.z];
     // Adds initial position to the path
     path.push(this.initialPosition);
