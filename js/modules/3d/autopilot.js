@@ -128,7 +128,7 @@ class Autopilot extends LineSegments {
     const title = `Welcome to our tour\n"${this.title}"`;
     let content1 = `You've entered The Second Realm, a purely digital space.\n\nEach point composing the point cloud in front of you represents a Bitcoin block, with its position defined by three attributes of the block.\n\n`;
     content1 += `Our automated wandering is about to begin.\n\nWe hope that you'll enjoy the ride.`;
-    const content2 = `Press the A button of the joystick to start this trip.`;
+    const content2 = `Press the B/Y button of the joystick to start this trip.`;
     this.world3d.hud.leftScreen.displayMessage(title, content1, content2);
   }
 

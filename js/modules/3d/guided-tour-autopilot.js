@@ -99,7 +99,7 @@ class GuidedTourAutopilot extends GuidedTour {
 
     let content1 = `You've entered The Second Realm, a purely digital space.\n\nEach point composing the point cloud in front of you represents a Bitcoin block, with its position defined by three attributes of the block.\n\n`;
     content1 += `During your journey into this realm, you'll be guided by a probe that localizes the points of interest. It looks like a pulsating red cube. You should be able to see it if you look around.`;
-    const content2 = `Press the A button of the joystick to start the tour.`;
+    const content2 = `Press the B/Y button of the joystick to start the tour.`;
     this.world3d.hud.leftScreen.displayMessage(title, content1, content2);
   }
 
@@ -120,7 +120,7 @@ class GuidedTourAutopilot extends GuidedTour {
     const stage = this.stages[idxSage];
     const title = `${stage.title}`;
     const content1 = `${stage.content}`;
-    const content2 = `When you're ready, press the A button of the joystick to continue the tour.`;
+    const content2 = `When you're ready, press the B/Y button of the joystick to continue the tour.`;
     this.world3d.hud.leftScreen.displayMessage(title, content1, content2);
   }
 
