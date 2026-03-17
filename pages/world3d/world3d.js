@@ -39,6 +39,10 @@ const world3dScript = {
     document.querySelector('#back-btn').addEventListener(
       'click', () => { window.history.back(); }
     );
+
+    document.querySelector('#back-btn2').addEventListener(
+      'click', () => { window.history.back(); }
+    );
   },
 
   /**
@@ -53,14 +57,17 @@ const world3dScript = {
     // Retrieves the scene params
     const sceneParams = SceneParams.fromJSON(sessionStorage.getItem('sceneParams'));
     if (sceneParams == null) return;
-    // Preloads the data series
+    // Displays a loading message 
+    world3dScript.setLoadingMessage('LOADING');
     world3dScript.showDiv('#loading');
+    // Preloads the data series
     await world3dScript.loadDataSeries(sceneParams);
     // Checks the active mode (builder/explorer)
+    // and starts the immersion or asks for a confirmation
     if (sceneParams.mode == SceneParams.MODE_BUILDER) {
       await world3dScript.confirmImmersion();
     } else {
-      document.querySelector('#location-span').textContent = sceneParams.name;
+      world3dScript.setLocationName(sceneParams.name);
       world3dScript.showDiv('#confirm-teleport');
     }
   },
@@ -69,11 +76,16 @@ const world3dScript = {
    * Start the immersion
    */
   startImmersion: async () => {
+    // Displays a loading message
+    world3dScript.setLoadingMessage('LOADING SCENE PARAMETERS');
+    world3dScript.showDiv('#loading');
+    // Loads scene parameters from session
     const sceneParams = SceneParams.fromJSON(sessionStorage.getItem('sceneParams'));
     if (sceneParams == null) return;
     // Initializes the tour type
     world3dScript.tourType = await world3dScript.getTourType(sceneParams);
     // Initializes a World component
+    world3dScript.showDiv('#container');
     let gridContainer = document.getElementById('container');
     world3dScript.world3d = new World3D(
       gridContainer, 
@@ -106,8 +118,7 @@ const world3dScript = {
    * (wrapper for startImmersion() in explorer mode)
    */
   confirmImmersion: async () => {
-    document.querySelector('#location-span').textContent = '';
-    world3dScript.showDiv('#container');
+    world3dScript.setLocationName('');
     await world3dScript.startImmersion();
   },
 
@@ -116,13 +127,23 @@ const world3dScript = {
    * Load initial data
    */
   loadDataSeries: async (sceneParams) => {
-    return Promise.all([
-      dataStore.getSeries('index'),
-      dataStore.getSeries('time'),
-      dataStore.getSeries(sceneParams.seriesX),
-      dataStore.getSeries(sceneParams.seriesY),
-      dataStore.getSeries(sceneParams.seriesZ)
-    ]);
+    try {
+      world3dScript.setLoadingMessage('LOADING DATA SERIES');
+      return Promise.all([
+        dataStore.getSeries('index'),
+        dataStore.getSeries('time'),
+        dataStore.getSeries(sceneParams.seriesX),
+        dataStore.getSeries(sceneParams.seriesY),
+        dataStore.getSeries(sceneParams.seriesZ)
+      ]);
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      world3dScript.setErrorMessage(`${e.message}`);
+      world3dScript.showDiv('#error');
+      throw e;
+    }
   },
 
 
@@ -135,7 +156,7 @@ const world3dScript = {
     const song = (sceneParams.song != 'null') ? sceneParams.song : getRandomSong();
 
     const displayMode = sceneParams.timelapseMode ? World3D.DISPLAY_MODE_ANIMATION : World3D.DISPLAY_MODE_STATIC;
-    
+
     [seriesH, seriesT, seriesX, seriesY, seriesZ] = await world3dScript.loadDataSeries(sceneParams);
     
     const pointsCloudData = new PointsCloudData(
@@ -212,7 +233,8 @@ const world3dScript = {
       '#container',
       '#loading',
       '#confirm-teleport',
-      '#webxr-not-suppported'
+      '#webxr-not-suppported',
+      '#error'
     ]
     for (let d of divs) {
       document.querySelector(d).setAttribute('hidden', '');
@@ -221,6 +243,28 @@ const world3dScript = {
     document.querySelector(div).removeAttribute('hidden');
     document.querySelector(div).style.display = (div != '#container') ? 'flex' : 'block';
   },
+
+  /*
+   * Set location name
+   */
+  setLocationName: (name) => {
+    document.querySelector('#location-span').textContent = name;
+  },
+
+  /*
+   * Set loading message
+   */
+  setLoadingMessage: (msg) => {
+    document.querySelector('#loading-span').textContent = msg;
+  },
+
+  /*
+   * Set error message
+   */
+  setErrorMessage: (msg) => {
+    document.querySelector('#error-span').textContent = msg;
+  },
+
 
 };
 
