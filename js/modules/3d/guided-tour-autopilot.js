@@ -107,7 +107,7 @@ class GuidedTourAutopilot extends GuidedTour {
    * Display a message when the dataship is moving 
    */
   displayOnTheMoveMessage() {
-    const title = `Fasten yout seatbelt`;
+    const title = `Fasten your seatbelt`;
     let content1 = `We're moving to the next point of interest.`;
     const content2 = ``;
     this.world3d.hud.leftScreen.displayMessage(title, content1, content2);
