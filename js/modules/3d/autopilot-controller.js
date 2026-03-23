@@ -310,7 +310,9 @@ class AutopilotController extends EventDispatcher {
    * Process controller commands
    */
   processCommands() {
-    Object.values(this.world3d.xrManager.controllers).forEach(mc => {
+    for (let obj of this.world3d.xrManager.controllers.values()) {
+      const mc = obj['motionController'];
+      if (mc == null) continue;
       Object.values(mc.components).forEach(c => {
         switch (c.type) {
           case Constants.ComponentType.TRIGGER:
@@ -349,7 +351,7 @@ class AutopilotController extends EventDispatcher {
           //
         }
       });
-    });
+    };
   }
 
   /*
