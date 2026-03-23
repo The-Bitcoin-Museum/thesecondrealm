@@ -310,8 +310,7 @@ class AutopilotController extends EventDispatcher {
    * Process controller commands
    */
   processCommands() {
-    for (let obj of this.world3d.xrManager.controllers.values()) {
-      const mc = obj['motionController'];
+    for (let mc of this.world3d.xrManager.controllers) {
       if (mc == null) continue;
       Object.values(mc.components).forEach(c => {
         switch (c.type) {
