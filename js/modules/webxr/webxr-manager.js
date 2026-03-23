@@ -37,10 +37,7 @@ class WebXRManager extends EventTarget {
   world3d = null;
   session = null;
   loader = null;
-
-  controllers = [];
-  controllerInputSources = [];
-  controllerModels = [];
+  controllers = new Map();
 
   // Hack (required for some browsers) 
   #xrSessionIsGranted = false;
@@ -55,6 +52,14 @@ class WebXRManager extends EventTarget {
     this.world3d = world3d;
     this.loader = new GLTFLoader();
 
+    // Initializes the controller objects
+    for (let i = 0; i < 2; ++i) {
+      const controller = this.world3d.renderer.xr.getController(i);
+      if (controller == null) continue;
+      this.world3d.camera.parent.add(controller);
+    }
+
+    // Offer webxr session if it's supported by the browser
     if (typeof navigator !== 'undefined' && 'xr' in navigator) {
 			// WebXRViewer (based on Firefox) has a bug where addEventListener
 			// throws a silent exception and aborts execution entirely.
@@ -97,60 +102,71 @@ class WebXRManager extends EventTarget {
    * onInputSourcesChange event handler
    */
   async onInputSourcesChange(e) {
-    for (let i = 0; i < e.removed.length; i++) {
-      const inputSource = e.removed[i];
-      const index = this.controllerInputSources.indexOf(inputSource);
-      if (index >= 0) {
-        this.controllerInputSources[index] = null;
-        this.controllers[index] = null;
-        // this.controllerModels[index].dispose();
-        this.controllerModels[index] = null;
+    try {
+      for (let i = 0; i < e.removed.length; i++) {
+        let inputSource = e.removed[i];
+        if (this.controllers.has(inputSource.handedness)) {
+          const obj = this.controllers.get(inputSource.handedness);
+          this.world3d.camera.parent.remove(obj['controller']);
+          if (obj['model']) {
+            obj['controller'].remove(obj['model']);
+          }
+          this.controllers.delete(inputSource.handedness);
+        }
       }
-    }
 
-    // Checks that we still have an active xr session
-    if (!this.session) return;
+      // Checks that we still have an active xr session
+      if (!this.session) {
+        return;
+      }
 
-    for (let i = 0; i < e.added.length; i++) {
-      const inputSource = e.added[i];
-      let {profile, assetPath} = await fetchProfile(inputSource, WebXRManager.ASSETS_URI);
-      // Forces use of meta quest touch plus model for now
-      let tokens = assetPath.split('/');
-      tokens[tokens.length - 2] = 'meta-quest-touch-plus';
-      assetPath = tokens.join('/');
-      const motionController = new MotionController(inputSource, profile, assetPath);
+      for (let i = 0; i < e.added.length; i++) {
+        let inputSource = e.added[i];
+        let {profile, assetPath} = await fetchProfile(inputSource, WebXRManager.ASSETS_URI);
 
-      let controllerIndex = -1;
-      await this.loader.load(motionController.assetUrl, (glb) => {
-        let controllerModel = glb.scene;
-        controllerModel.rotation.x = Math.PI / 4;
-        controllerIndex = this.controllerInputSources.indexOf(inputSource);
-        if (controllerIndex === - 1) {
-          // Assign input source a controller that currently has no input source
-          for (let j = 0; j < 2; j++) {
-            if (j >= this.controllerInputSources.length) {
-              this.controllerInputSources.push(inputSource);
-              this.controllers.push(motionController);
-              this.controllerModels.push(controllerModel);
-              this.world3d.renderer.xr.getController(j).add(controllerModel);
-              controllerIndex = j;
-              break;
-            } else if (this.controllerInputSources[j] === null) {
-              this.controllerInputSources[j] = inputSource;
-              this.controllers[j] = motionController;
-              this.controllerModels[j] = controllerModel;
-              this.world3d.renderer.xr.getController(j).add(controllerModel);
-              controllerIndex = j;
+        // Forces use of meta quest touch plus model for now
+        let tokens = assetPath.split('/');
+        tokens[tokens.length - 2] = 'meta-quest-touch-plus';
+        assetPath = tokens.join('/');
+        const motionController = new MotionController(inputSource, profile, assetPath);
+
+        await this.loader.load(motionController.assetUrl, (glb) => {
+          let controllerModel = glb.scene;
+          controllerModel.rotation.x = Math.PI / 4;
+
+          if (this.controllers.has(inputSource.handedness)) return;
+
+          let index = -1;
+          for (let i = 0; i < this.session.inputSources.length; i++) {
+            if (this.session.inputSources[i].handedness == inputSource.handedness) {
+              index = i;
               break;
             }
           }
-        }
-      }, undefined, (error) => {
-        console.error(error);
-      });
+          if (index === -1) return;
 
-      // // If all controllers do currently receive input we ignore new ones
-      // if (controllerIndex === - 1) break;
+          let controller = this.world3d.renderer.xr.getController(index);
+          if (!this.world3d.camera.parent.children.includes(controller)) {
+            this.world3d.camera.parent.add(controller);
+          }
+          if (!controller.children.includes(controllerModel)) {
+            controller.add(controllerModel);
+          }
+
+          this.controllers.set(inputSource.handedness, {
+            'inputSource': inputSource,
+            'controller': controller,
+            'motionController': motionController, 
+            'model': controllerModel
+          });
+
+        }, undefined, (error) => {
+          console.error(error);
+        });
+
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
@@ -184,11 +200,16 @@ class WebXRManager extends EventTarget {
    * Animation loop
    */
   update(delta) {
-    Object.values(this.controllers).forEach(controller => {
-      if (controller != null) {
-        controller.updateFromGamepad();
+    try {
+      for (let obj of this.world3d.xrManager.controllers.values()) {
+        const controller = obj['motionController'];
+        if (controller != null) {
+          controller.updateFromGamepad();
+        }
       }
-    });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
 
@@ -200,9 +221,7 @@ class WebXRManager extends EventTarget {
     this.session = null;
     this.loader = null;
 
-    this.controllers = [];
-    this.controllerInputSources = [];
-    this.controllerModels = [];
+    this.controllers = null;
   }
 
 }
