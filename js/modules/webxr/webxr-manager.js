@@ -37,7 +37,8 @@ class WebXRManager extends EventTarget {
   world3d = null;
   session = null;
   loader = null;
-  controllers = new Map();
+  controllers = [];
+  isActive = false;
 
   // Hack (required for some browsers) 
   #xrSessionIsGranted = false;
@@ -54,8 +55,10 @@ class WebXRManager extends EventTarget {
 
     // Initializes the controller objects
     for (let i = 0; i < 2; ++i) {
-      const controller = this.world3d.renderer.xr.getController(i);
+      const controller = this.world3d.renderer.xr.getControllerGrip(i);
       if (controller == null) continue;
+      controller.addEventListener('connected', this.onInputSourcesChange.bind(this));
+      controller.addEventListener('disconnected', this.onInputSourcesChange.bind(this));
       this.world3d.camera.parent.add(controller);
     }
 
@@ -83,8 +86,8 @@ class WebXRManager extends EventTarget {
    */
   async onSessionStarted(session) {
     session.addEventListener('end', this.onSessionEnded.bind(this));
-    session.addEventListener('inputsourceschange', this.onInputSourcesChange.bind(this));
     this.session = session;
+    this.isActive = true;
     this.dispatchEvent(new Event('sessionstart'));
   }
 
@@ -92,6 +95,7 @@ class WebXRManager extends EventTarget {
    * onSessionEnded event handler
    */
   onSessionEnded( /*event*/ ) {
+    this.isActive = false;
     this.session.removeEventListener('end', this.onSessionEnded);
     this.session = null;
     this.dispose();
@@ -103,25 +107,16 @@ class WebXRManager extends EventTarget {
    */
   async onInputSourcesChange(e) {
     try {
-      for (let i = 0; i < e.removed.length; i++) {
-        let inputSource = e.removed[i];
-        if (this.controllers.has(inputSource.handedness)) {
-          const obj = this.controllers.get(inputSource.handedness);
-          this.world3d.camera.parent.remove(obj['controller']);
-          if (obj['model']) {
-            obj['controller'].remove(obj['model']);
-          }
-          this.controllers.delete(inputSource.handedness);
-        }
-      }
+      if (!this.isActive) return;
 
-      // Checks that we still have an active xr session
-      if (!this.session) {
-        return;
-      }
+      this.controllers = [];
 
-      for (let i = 0; i < e.added.length; i++) {
-        let inputSource = e.added[i];
+      for (let i = 0; i < 2; i++) {
+        let inputSource = this.world3d.renderer.xr.getInputSource(i);
+        if (inputSource == null) continue;
+        
+        let controller = this.world3d.renderer.xr.getControllerGrip(i);
+        
         let {profile, assetPath} = await fetchProfile(inputSource, WebXRManager.ASSETS_URI);
 
         // Forces use of meta quest touch plus model for now
@@ -132,37 +127,13 @@ class WebXRManager extends EventTarget {
 
         await this.loader.load(motionController.assetUrl, (glb) => {
           let controllerModel = glb.scene;
-          controllerModel.rotation.x = Math.PI / 4;
-
-          if (this.controllers.has(inputSource.handedness)) return;
-
-          let index = -1;
-          for (let i = 0; i < this.session.inputSources.length; i++) {
-            if (this.session.inputSources[i].handedness == inputSource.handedness) {
-              index = i;
-              break;
-            }
-          }
-          if (index === -1) return;
-
-          let controller = this.world3d.renderer.xr.getController(index);
-          if (!this.world3d.camera.parent.children.includes(controller)) {
-            this.world3d.camera.parent.add(controller);
-          }
-          if (!controller.children.includes(controllerModel)) {
-            controller.add(controllerModel);
-          }
-
-          this.controllers.set(inputSource.handedness, {
-            'inputSource': inputSource,
-            'controller': controller,
-            'motionController': motionController, 
-            'model': controllerModel
-          });
+          controller.clear();
+          controller.add(controllerModel);
+          this.controllers.push(motionController);
 
         }, undefined, (error) => {
           console.error(error);
-        });
+        });   
 
       }
     } catch (e) {
@@ -201,11 +172,8 @@ class WebXRManager extends EventTarget {
    */
   update(delta) {
     try {
-      for (let obj of this.world3d.xrManager.controllers.values()) {
-        const controller = obj['motionController'];
-        if (controller != null) {
-          controller.updateFromGamepad();
-        }
+      for (let controller of this.controllers) {
+        controller.updateFromGamepad();
       }
     } catch (e) {
       console.error(e);
@@ -217,10 +185,16 @@ class WebXRManager extends EventTarget {
    * Clear the WebXRManager object
    */
   dispose() {
+    for (let i = 0; i < 2; ++i) {
+      const controller = this.world3d.renderer.xr.getControllerGrip(i);
+      if (controller == null) continue;
+      controller.removeEventListener('connected', this.onInputSourcesChange.bind(this));
+      controller.removeEventListener('disconnected', this.onInputSourcesChange.bind(this));
+    }
+
     this.world3d = null;
     this.session = null;
     this.loader = null;
-
     this.controllers = null;
   }
 

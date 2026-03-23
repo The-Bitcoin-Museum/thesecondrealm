@@ -170,8 +170,7 @@ class FlyController extends EventDispatcher {
     try {
       // Squeeze button: switch between translation and rotation modes
       let isRotationMode = false;
-      for (let obj of this.world3d.xrManager.controllers.values()) {
-        const mc = obj['motionController'];
+      for (let mc of this.world3d.xrManager.controllers) {
         if (mc == null) continue;
         Object.values(mc.components).forEach(c => {
           if (c.type == Constants.ComponentType.SQUEEZE) {
@@ -183,8 +182,7 @@ class FlyController extends EventDispatcher {
       }
 
       // Refresh the acceleration state object
-      for (let obj of this.world3d.xrManager.controllers.values()) {
-        const mc = obj['motionController'];
+      for (let mc of this.world3d.xrManager.controllers) {
         if (mc == null) continue;
         Object.values(mc.components).forEach(c => {
           switch (c.type) {
