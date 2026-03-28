@@ -6,12 +6,13 @@ General
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   min-height: 100%;
 }
 
-body {  
+body {
   background: #12171a;
   color: #cfd8dc;
   font-size: 10pt;
@@ -99,7 +100,7 @@ li {
 
 .cover-left .title,
 .cover-right .title {
-  margin: 0 0 2em 0;
+  margin: 0 0 1em 0;
   font-size: 24pt;
   font-weight: 300;
 }
@@ -118,8 +119,8 @@ li {
 
 .paragraph-row div {
   display: inline-block;
-  margin-top: 0!important;
-  margin-bottom: 0!important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .paragraph-left {
@@ -174,7 +175,8 @@ li {
   text-shadow: none;
 }
 
-.btn-success:hover, .btn-success:focus {
+.btn-success:hover,
+.btn-success:focus {
   background-color: #0aaeaf;
   border-color: #0aaeaf;
 }
@@ -189,7 +191,7 @@ li {
 /**
  * Payload Utils tool
  */
- #payload-utils-table {
+#payload-utils-table {
   width: 100%;
   height: 100%;
   margin: 10px;
@@ -212,7 +214,6 @@ li {
   font-size: 24pt;
   font-weight: 300;
 }
-
 
 /**
  * Parallax scrolling effect
@@ -271,11 +272,10 @@ li {
   background-size: cover;
   color: var(--color);
   row-gap: 3rem;
-  text-align: center;  
+  text-align: center;
   padding: 6rem 0;
   gap: 1.6em;
 }
-
 
 /**
  * Home
@@ -283,7 +283,7 @@ li {
 
 #home-section1 {
   background-image: url(/static/images/tsr_9.jpg);
-  justify-content: end!important;
+  justify-content: end !important;
   text-align: right;
 }
 
@@ -335,7 +335,7 @@ li {
 #explore-section1 {
   background-image: url(/static/images/tsr_1b.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 #explore-section2 > .title {
@@ -411,10 +411,10 @@ li {
  * Build
  */
 
- #build-section1 {
+#build-section1 {
   background-image: url(/static/images/tsr_7.jpg);
   text-align: right;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 #build-section2 > .title {
@@ -422,7 +422,6 @@ li {
   font-size: 24pt;
   font-weight: 300;
 }
-
 
 #build-section2 .note {
   text-align: left;
@@ -516,7 +515,7 @@ li {
 
 .msg-card .inner {
   padding: 4em 4em 3em 4em;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .msg-card .inner div {
@@ -533,7 +532,7 @@ li {
   height: 80px;
 }
 .loading-dual-ring:after {
-  content: " ";
+  content: ' ';
   display: block;
   width: 64px;
   height: 64px;
@@ -553,7 +552,6 @@ li {
   }
 }
 
-
 /**
  * TELL
  */
@@ -561,7 +559,7 @@ li {
 #tell-section1 {
   background-image: url(/static/images/tsr_3.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 #tell-section2 #format-img {
@@ -577,7 +575,7 @@ li {
 #tell-section3 {
   background-image: url(/static/images/tsr_4.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 #tell-section3 #format-div2 {
@@ -594,10 +592,10 @@ li {
  * SHAPE
  */
 
- #shape-section1 {
+#shape-section1 {
   background-image: url(/static/images/tsr_14.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 /**
@@ -607,7 +605,7 @@ li {
 #atlas-section1 {
   background-image: url(/static/images/tsr_11.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
 }
 
 .row {
@@ -654,7 +652,8 @@ li {
   margin-left: 0;
 }
 
-#realm1, #realm1b {
+#realm1,
+#realm1b {
   background-image: url(/static/images/mini_3.jpg);
 }
 
@@ -670,7 +669,8 @@ li {
   background-image: url(/static/images/mini_15b.jpg);
 }
 
-#realm5, #realm5b {
+#realm5,
+#realm5b {
   background-image: url(/static/images/mini_15.jpg);
 }
 
@@ -698,13 +698,165 @@ li {
   background-image: url(/static/images/mini_7d.jpg);
 }
 
-
 /**
  * CREDITS
  */
 
- #credits-section1 {
+#credits-section1 {
   background-image: url(/static/images/tsr_15b.jpg);
   text-align: left;
-  justify-content: end!important;
+  justify-content: end !important;
+}
+
+/**
+ * RESPONSIVE
+ */
+
+@media (max-width: 430px) {
+  .header {
+    top: 2.2em;
+    right: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  .header a {
+    margin: 0 0.35em;
+    display: inline-block;
+  }
+
+  .cover-right,
+  .cover-left {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  #home-section1 {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+    padding: 7em 1.25em 4em 1.25em;
+    box-sizing: border-box;
+  }
+
+  #home-section1 .home-cover-right {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #home-section1 .home-logo-title {
+    margin: 0 0 1em 0;
+  }
+
+  #home-section1 .home-logo-title img {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  #home-section1 .home-logo-quote {
+    margin: 0;
+    text-align: center;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+
+  #home-section1 .home-logo-quote p {
+    margin: 0 0 1em 0;
+  }
+
+  #home-section1 .home-logo-quote br {
+    display: none;
+  }
+
+  #home-intro {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3em 1.25em 4em 1.25em;
+    box-sizing: border-box;
+  }
+
+  #home-intro #intro-video,
+  #home-intro #intro-text {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #home-intro #intro-video {
+    order: 1;
+    margin-bottom: 2em;
+  }
+
+  #home-intro #intro-video #video-player {
+    width: 100%;
+    margin-top: 0;
+    display: block;
+  }
+
+  #home-intro #intro-text {
+    order: 2;
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #home-section2 {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3.5em 1.25em 5em 1.25em;
+    box-sizing: border-box;
+  }
+
+  #home-section2 .title,
+  #home-section2 .subtitle,
+  #home-section2 .content {
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  #home-section2 .title {
+    margin-bottom: 0.8em;
+    font-size: 20pt;
+  }
+
+  #home-section2 .subtitle {
+    margin-top: 1.4em;
+    font-size: 11pt;
+  }
+
+  #home-section2 .content {
+    margin-top: 0.9em;
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #home-section2 .content:last-of-type {
+    margin-bottom: 3em;
+  }
+
+  #footer-section {
+    width: 90%;
+    min-height: auto;
+    padding: 1.5em 0;
+    flex-direction: column;
+    row-gap: 1em;
+  }
+
+  #footer-section span {
+    display: block;
+    text-align: center;
+  }
 }
