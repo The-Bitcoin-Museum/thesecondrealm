@@ -1148,4 +1148,149 @@ li {
     font-size: 10pt;
     line-height: 1.6;
   }
+
+  /**
+  * RESPONSIVE BUILD PAGE
+  */
+
+  #build-section1,
+  #build-section2 {
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    box-sizing: border-box;
+  }
+
+  #build-section1 {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+    padding-top: 7em;
+    padding-bottom: 4em;
+  }
+
+  #build-section1 .cover-right {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  #build-section1 .title,
+  #build-section1 .content {
+    text-align: center;
+  }
+
+  #build-section1 .title {
+    font-size: 20pt;
+    margin-bottom: 0.8em;
+  }
+
+  #build-section1 .content {
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #build-section2 {
+    padding-top: 3.5em;
+    padding-bottom: 4em;
+  }
+
+  #build-section2 > .title {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 1.2em auto;
+    text-align: center;
+    font-size: 20pt;
+    line-height: 1.3;
+  }
+
+  #build-section2 .level1 {
+    width: 100%;
+    max-width: 320px;
+    margin: 3em auto 0 auto;
+    font-size: 11pt;
+  }
+
+  #build-section2 .level1 .title {
+    margin-top: 0;
+    font-size: 18pt;
+    line-height: 1.3;
+  }
+
+  #build-section2 .note {
+    margin: 0.8em 0 1.5em 0;
+    font-size: 10pt;
+    line-height: 1.6;
+  }
+
+  #build-section2 .axis {
+    display: block;
+    width: 100%;
+    margin: 0 0 2.5em 0;
+  }
+
+  #build-section2 .axis h3 {
+    margin-bottom: 0.8em;
+  }
+
+  #build-section2 .axis select,
+  #build-section2 select,
+  #build-section2 input[type='text'] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 0.9em 0;
+  }
+
+  #build-section2 .histo-filters {
+    width: 100%;
+    height: 220px;
+  }
+
+  #filterMinH-input,
+  #filterMaxH-input,
+  #music-input,
+  #organized-tour-url-input,
+  #name-input {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0.7em 0;
+  }
+
+  #block2-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6em;
+  }
+
+  #block2-1 span {
+    display: block;
+    text-align: left;
+  }
+
+  #block4 input[type='radio'] {
+    margin-right: 0.4em;
+  }
+
+  #deactivate-timelapse-radio {
+    margin-left: 0;
+  }
+
+  #block4 label {
+    margin-right: 1.2em;
+  }
+
+  #build-section2 .buttons-bar {
+    width: 100%;
+    max-width: 320px;
+    margin: 2.5em auto 0 auto;
+    text-align: center;
+  }
+
+  #build-section2 .buttons-bar .btn-success {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.9em 0;
+    box-sizing: border-box;
+  }
 }
