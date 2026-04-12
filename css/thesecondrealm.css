@@ -1293,4 +1293,140 @@ li {
     margin: 0 0 0.9em 0;
     box-sizing: border-box;
   }
+
+  /**
+  * RESPONSIVE TELL PAGE
+  */
+
+  #tell-section1,
+  #tell-section2,
+  #tell-section3,
+  #tell-section4 {
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    box-sizing: border-box;
+  }
+
+  #tell-section1 {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+    padding-top: 7em;
+    padding-bottom: 4em;
+  }
+
+  #tell-section1 .cover-right {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  #tell-section1 .title,
+  #tell-section1 .content {
+    text-align: center;
+  }
+
+  #tell-section1 .title {
+    font-size: 20pt;
+    margin-bottom: 0.8em;
+  }
+
+  #tell-section1 .content {
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #tell-section2,
+  #tell-section3,
+  #tell-section4 {
+    padding-top: 3.5em;
+    padding-bottom: 4em;
+  }
+
+  #tell-section2 .paragraph-left,
+  #tell-section2 .paragraph-right,
+  #tell-section3 .paragraph-left,
+  #tell-section3 .paragraph-right,
+  #tell-section4 .paragraph-left {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  #tell-section2 .title,
+  #tell-section3 .title,
+  #tell-section4 .title {
+    font-size: 20pt;
+    line-height: 1.3;
+    margin-bottom: 0.8em;
+  }
+
+  #tell-section2 .content,
+  #tell-section3 .content,
+  #tell-section4 .content {
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #tell-section2 ul,
+  #tell-section3 ul {
+    margin-left: 1.2em;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+
+  #tell-section2 > .paragraph-left,
+  #tell-section4 #tips-div {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  #format-div,
+  #format-div2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 2.5em 0 0 0;
+  }
+
+  #format-content-div,
+  #format-content-div2,
+  #format-img-div,
+  #format-img-div2 {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  #format-img-div,
+  #format-img-div2 {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  #tell-section2 #format-img,
+  #tell-section2 #format-img2,
+  #tell-section3 #format-img3 {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 1em auto;
+  }
+
+  #tell-section3 #format-div2 {
+    margin-top: 2.5em;
+  }
+
+  #tell-section3 #format-img3 {
+    margin-top: 0;
+  }
+
+  #tips-div {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
 }
