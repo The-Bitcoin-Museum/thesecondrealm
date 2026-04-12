@@ -602,6 +602,10 @@ li {
  * ATLAS
  */
 
+#atlas-section2 {
+  margin-bottom: 10em;
+}
+
 #atlas-section1 {
   background-image: url(/static/images/tsr_11.jpg);
   text-align: left;
@@ -1052,5 +1056,96 @@ li {
   #controller-use-div,
   #hud-div {
     margin-top: 2em;
+  }
+
+  /**
+  * RESPONSIVE ATLAS PAGE
+  */
+
+  #atlas-section2 {
+    margin-bottom: 6em;
+  }
+
+  #atlas-section1,
+  #atlas-section2 {
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    box-sizing: border-box;
+  }
+
+  #atlas-section1 {
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+    padding-top: 7em;
+    padding-bottom: 4em;
+  }
+
+  #atlas-section1 .cover-left {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  #atlas-section1 .title,
+  #atlas-section1 .content {
+    text-align: center;
+  }
+
+  #atlas-section1 .title {
+    font-size: 20pt;
+    margin-bottom: 0.8em;
+  }
+
+  #atlas-section1 .content {
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+
+  #atlas-section2 {
+    padding-top: 3.5em;
+    padding-bottom: 4em;
+  }
+
+  #atlas-section2 .row {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+    gap: 2.86em;
+  }
+
+  #atlas-section2 .row:not(:last-child) {
+    margin-bottom: 2.86em;
+  }
+
+  #atlas-section2 .card {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+  }
+
+  #atlas-section2 .visual {
+    min-height: 100px;
+    height: 110px;
+    padding: 0.75em;
+    box-sizing: border-box;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  #atlas-section2 .visual a {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  #atlas-section2 .desc {
+    padding: 1.2em;
+    font-size: 10pt;
+    line-height: 1.6;
   }
 }
